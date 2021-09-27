@@ -7,8 +7,8 @@ PRICE_TABLE = {
 }
 
 OFFERS = {
-    '3A': 130,
-    '2B': 45
+    'A': 130,
+    'B': 45
 }
 
 # noinspection PyUnusedLocal
@@ -19,8 +19,11 @@ def checkout(skus: str):
     for s in skus:
         if s not in PRICE_TABLE: # also handle case if there is no sku inputted
             return -1
-        
+
         if s not in item_count_map:
             item_count_map[s] = 1
         else:
             item_count_map[s] += 1
+    
+    item_count
+
