@@ -28,6 +28,8 @@ def skus_valid(skus: str) -> bool:
 
 
 def count_each_item(skus: str) -> Dict[str, int]:
+    '''Count how many instances of each sku we see
+    '''
     sku_count = {}
     for sku in skus:
         if sku in sku_count:
@@ -36,7 +38,7 @@ def count_each_item(skus: str) -> Dict[str, int]:
             sku_count[sku] = 1
 
 
-def total_cost_per_item(item_to_quantity_map: Dict[int, str]) -> Dict[int, str]:
+def calc_total_cost_per_item(item_to_quantity_map: Dict[int, str]) -> Dict[int, str]:
     summed_items = {}
     for sku, quantity in item_to_quantity_map.items():
         item = SKU_TO_ITEM[sku]
@@ -47,8 +49,13 @@ def total_cost_per_item(item_to_quantity_map: Dict[int, str]) -> Dict[int, str]:
     return summed_items
 
 def handle_special_deal_items(item: Item, quantity: int) -> int:
+    '''Calculate the special offer prices
+    '''
     special_deal = item.special_deal
     split_prices = divmod(quantity, special_deal.quantity)
+    special_price_cost = split_prices[0] * special_deal.offer_price
+    regular_price_cost = split_prices[1] * item.unit_price
+    return special_price_cost + regular_price_cost
 
 
 # noinspection PyUnusedLocal
@@ -57,6 +64,7 @@ def checkout(skus: str):
     if not skus_valid(skus):
         return INVALID_SKUS
     item_to_quantity_map = count_each_item(skus)
+    total_cost_per_item = calc_total_cost_per_item(item_to_quantity_map)
 
 
 
