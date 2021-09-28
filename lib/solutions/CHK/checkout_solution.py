@@ -1,6 +1,6 @@
 from collections import namedtuple
 from dataclasses import dataclass
-from typing import NamedTuple, Optional
+from typing import Dict, NamedTuple, Optional
 
 INVALID_SKUS = -1
 
@@ -26,11 +26,22 @@ def skus_valid(skus: str) -> bool:
     '''
     return all([sku in SKU_TO_ITEM for sku in skus])
 
+
+def count_each_item(skus: str) -> Dict[str, int]:
+    sku_count = {}
+    for sku in skus:
+        if sku in sku_count:
+            sku_count[sku] += 1
+        else:
+            sku_count[sku] = 1
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str):
     if not skus_valid(skus):
         return INVALID_SKUS
+    item_to_quantity_map = count_each_item(skus)
 
 
 
