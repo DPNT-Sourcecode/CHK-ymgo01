@@ -1,4 +1,4 @@
-from solutions.CHK import checkout_solution
+from lib.solutions.CHK import checkout_solution
 
 
 class TestCheckout():
@@ -9,9 +9,10 @@ class TestCheckout():
         assert checkout_solution.checkout('AAA') == 130
 
     def test_invalid_inut(self):
-        assert checkout_solution.checkout('sd"AFFFAARR') == 130
+        assert checkout_solution.checkout('sd"AFFFAARR') == -1
 
     def test_mix_inputs(self):
-        assert checkout_solution.checkout('ABCD') == 130
+        assert checkout_solution.checkout('ABCD') == 115
 
-
+    def test_invalid_input_space(self):
+        assert checkout_solution.checkout('ABC D') == 115

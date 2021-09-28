@@ -10,7 +10,7 @@ deal = namedtuple("SpecialOffer", ["quantity", "offer_price"])
 class Item:
     sku: str
     unit_price: int
-    special_deal: Optional[NamedTuple]
+    special_deal: Optional[NamedTuple] = None
 
 
 SKU_TO_ITEM = {
@@ -36,6 +36,7 @@ def count_each_item(skus: str) -> Dict[str, int]:
             sku_count[sku] += 1
         else:
             sku_count[sku] = 1
+    return sku_count
 
 
 def calc_total_cost_per_item(item_to_quantity_map: Dict[int, str]) -> Dict[int, str]:
@@ -74,8 +75,3 @@ def checkout(skus: str):
     total_cost_per_item = calc_total_cost_per_item(item_to_quantity_map)
     total_cost = calc_total_cost(total_cost_per_item)
     return total_cost
-
-
-
-
-
