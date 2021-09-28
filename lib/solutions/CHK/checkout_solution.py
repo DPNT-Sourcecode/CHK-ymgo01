@@ -36,12 +36,24 @@ def count_each_item(skus: str) -> Dict[str, int]:
             sku_count[sku] = 1
 
 
+def total_cost_per_item(item_to_quantity_map: Dict[int, str]) -> Dict[int, str]:
+    summed_items = {}
+    for sku, quantity in item_to_quantity_map.items():
+        item = SKU_TO_ITEM[sku]
+        if item.special_deal:
+            summed_items[sku] = handle_special_deal_items(item, quantity)
+        else:
+            summed_items[sku] = item.unit_price * quantity
+    return summed_items
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str):
     if not skus_valid(skus):
         return INVALID_SKUS
     item_to_quantity_map = count_each_item(skus)
+
 
 
 
