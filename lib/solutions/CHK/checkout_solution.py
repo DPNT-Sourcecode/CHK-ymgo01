@@ -46,6 +46,10 @@ def total_cost_per_item(item_to_quantity_map: Dict[int, str]) -> Dict[int, str]:
             summed_items[sku] = item.unit_price * quantity
     return summed_items
 
+def handle_special_deal_items(item: Item, quantity: int) -> int:
+    special_deal = item.special_deal
+    split_prices = divmod(quantity, special_deal.quantity)
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -53,6 +57,7 @@ def checkout(skus: str):
     if not skus_valid(skus):
         return INVALID_SKUS
     item_to_quantity_map = count_each_item(skus)
+
 
 
 
