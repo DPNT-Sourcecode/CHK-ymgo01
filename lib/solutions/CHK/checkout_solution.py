@@ -26,4 +26,3 @@ def checkout(skus: str):
             item_count_map[s] += 1
     
     item_count
-
